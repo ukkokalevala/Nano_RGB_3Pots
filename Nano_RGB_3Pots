@@ -1,0 +1,45 @@
+#define RED_PIN 9
+#define GREEN_PIN 10
+#define BLUE_PIN 11
+#define POT_RED_PIN A0
+#define POT_GREEN_PIN A1
+#define POT_BLUE_PIN A2
+
+void setup() {
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  pinMode(BLUE_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int redPotValue = analogRead(POT_RED_PIN); // Read red potentiometer value
+  int greenPotValue = analogRead(POT_GREEN_PIN); // Read green potentiometer value
+  int bluePotValue = analogRead(POT_BLUE_PIN); // Read blue potentiometer value
+
+  // Map potentiometer values to the range 0-255
+  int redValue = map(redPotValue, 0, 1023, 0, 255);
+  int greenValue = map(greenPotValue, 0, 1023, 0, 255);
+  int blueValue = map(bluePotValue, 0, 1023, 0, 255);
+
+  // Set RGB LED colors
+  analogWrite(RED_PIN, redValue);
+  analogWrite(GREEN_PIN, greenValue);
+  analogWrite(BLUE_PIN, blueValue);
+
+  // Print the values for debugging
+  Serial.print("Red Pot: ");
+  Serial.print(redPotValue);
+  Serial.print(" | Red Value: ");
+  Serial.print(redValue);
+  Serial.print(" | Green Pot: ");
+  Serial.print(greenPotValue);
+  Serial.print(" | Green Value: ");
+  Serial.print(greenValue);
+  Serial.print(" | Blue Pot: ");
+  Serial.print(bluePotValue);
+  Serial.print(" | Blue Value: ");
+  Serial.println(blueValue);
+
+  delay(100); // Delay for stability
+}
